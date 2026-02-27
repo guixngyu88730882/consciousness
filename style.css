@@ -354,31 +354,30 @@ a {
   padding: 0;
 }
 
-.hero-bg {
+.hero-video-container {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
+  background: var(--bg);
 }
 
-.hero-grid {
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+}
+
+.hero-video-overlay {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(167, 139, 250, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(167, 139, 250, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  animation: gridMove 20s linear infinite;
-}
-
-@keyframes gridMove {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(60px, 60px); }
-}
-
-.hero-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 30%, var(--bg) 80%);
+  background: rgba(6, 6, 8, 0.2);
+  pointer-events: none;
 }
 
 .hero-content {
@@ -389,6 +388,38 @@ a {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+}
+
+/* Signature */
+.hero-signature {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.3em;
+  color: var(--text);
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(1.1);
+  animation: signatureReveal 2.5s var(--ease-out) 0.5s forwards;
+}
+
+@keyframes signatureReveal {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.1);
+  }
+  60% {
+    opacity: 0.6;
+    filter: blur(4px);
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
 }
 
 /* Pretitle */
@@ -437,11 +468,18 @@ a {
 .char {
   display: inline-block;
   transform: translateY(120%);
-  animation: charReveal 0.8s var(--ease-out) forwards;
-  background: linear-gradient(135deg, #fff 0%, var(--accent-bright) 50%, var(--accent) 100%);
+  animation: charReveal 0.8s var(--ease-out) forwards, gradientShift 8s ease-in-out infinite;
+  background: linear-gradient(90deg, #ff6b9d, #ffa94d, #ffd43b, #da77f2, #74c0fc, #ff6b9d);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .char-wrap:nth-child(1) .char { animation-delay: 0.5s; }

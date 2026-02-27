@@ -55,31 +55,21 @@
 
     <!-- ==================== SECTION 0: HERO ==================== -->
     <section class="section section-hero" id="hero" data-index="0">
-      <div class="hero-bg">
-        <div class="hero-grid"></div>
-        <div class="hero-vignette"></div>
-          </div>
+      <div class="hero-video-container">
+        <video autoplay muted loop playsinline class="hero-video">
+          <source src="./logo/hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero-video-overlay"></div>
+      </div>
 
       <div class="hero-content">
+        <h1 class="hero-signature" id="heroSignature">SENTIENCE</h1>
+
         <div class="hero-pretitle" id="heroPretitle">
           <span class="glitch-line"></span>
           <span class="pretitle-text">GTA V × 本地 LLM 集成</span>
           <span class="glitch-line"></span>
         </div>
-
-        <h1 class="hero-title" id="heroTitle">
-          <span class="title-line">
-            <span class="char-wrap"><span class="char">S</span></span>
-            <span class="char-wrap"><span class="char">E</span></span>
-            <span class="char-wrap"><span class="char">N</span></span>
-            <span class="char-wrap"><span class="char">T</span></span>
-            <span class="char-wrap"><span class="char">I</span></span>
-            <span class="char-wrap"><span class="char">E</span></span>
-            <span class="char-wrap"><span class="char">N</span></span>
-            <span class="char-wrap"><span class="char">C</span></span>
-            <span class="char-wrap"><span class="char">E</span></span>
-          </span>
-        </h1>
 
         <p class="hero-subtitle" id="heroSubtitle">每一个灵魂都在觉醒。</p>
 
@@ -243,7 +233,7 @@
           </div>
           <div class="spec">
             <span class="spec-key">最低显存</span>
-            <span class="spec-val">2 GB (Q4 量化)</span>
+            <span class="spec-val">2 GB (Q5 量化)</span>
           </div>
           <div class="spec">
             <span class="spec-key">延迟目标</span>
@@ -326,7 +316,7 @@
             </div>
             <div class="terminal-body" id="terminalBody">
               <div class="term-line"><span class="term-time">[14:32:07]</span> <span class="term-system">系统</span> 正在初始化 SENTIENCE 引擎...</div>
-              <div class="term-line"><span class="term-time">[14:32:08]</span> <span class="term-system">系统</span> LLM 已加载：Mistral-7B-Q4_K_M (3.8 GB 显存)</div>
+              <div class="term-line"><span class="term-time">[14:32:08]</span> <span class="term-system">系统</span> LLM 已加载：qwen2.5-1.5b-instruct</span></div>
               <div class="term-line"><span class="term-time">[14:32:08]</span> <span class="term-system">系统</span> 记忆存储已连接。2,847 条记录。</div>
               <div class="term-line"><span class="term-time">[14:32:09]</span> <span class="term-system">系统</span> <span class="term-success">就绪。活动范围内 18 个 NPC。</span></div>
               <div class="term-line"><span class="term-time">[14:32:15]</span> <span class="term-npc">店员_042</span> <span class="term-emotion">[信任: 0.7, 好奇: 0.4]</span></div>
@@ -371,12 +361,12 @@
         <p class="download-sub reveal-up">免费。开箱即用。完全运行在你的硬件上。</p>
 
         <div class="download-buttons reveal-up">
-          <a href="#" class="btn btn-primary">
+          <a href="https://www.wanjiadongli.com/mods/295861" class="btn btn-primary" target="_blank">
             <span class="btn-bg"></span>
             <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-            <span class="btn-text">加入内测</span>
+            <span class="btn-text">立即下载</span>
           </a>
-          <a href="#" class="btn btn-secondary">
+          <a href="https://github.com/guixngyu88730882/SENTIENCE" class="btn btn-secondary" target="_blank">
             <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
             <span class="btn-text">在 GitHub 上查看</span>
           </a>
@@ -388,9 +378,9 @@
             <div class="req"><span class="req-label">系统</span><span class="req-value">Windows 10/11 64位</span></div>
             <div class="req"><span class="req-label">显卡</span><span class="req-value">2 GB+ 显存 (推荐 NVIDIA)</span></div>
             <div class="req"><span class="req-label">内存</span><span class="req-value">最低 16 GB</span></div>
-            <div class="req"><span class="req-label">存储</span><span class="req-value">约 8 GB (视模型而定)</span></div>
+            <div class="req"><span class="req-label">存储</span><span class="req-value">约 5 GB (视模型而定)</span></div>
             <div class="req"><span class="req-label">GTA V</span><span class="req-value">最新版本 + ScriptHookV</span></div>
-            <div class="req"><span class="req-label">运行环境</span><span class="req-value">LM Studio (千问2.5 Q4)</span></div>
+            <div class="req"><span class="req-label">运行环境</span><span class="req-value">LM Studio (千问2.5 Q5)</span></div>
           </div>
         </div>
 
@@ -401,7 +391,7 @@
             <a href="#">Discord (暂未开通)</a>
             <a href="#">文档</a>
             <a href="https://x.com/dongli719637" target="_blank">X</a>
-            <a href="#">暂未开源</a>
+            <a href="https://github.com/guixngyu88730882/SENTIENCE" target="_blank">GitHub</a>
           </div>
           <p class="footer-copy">© 2026 SENTIENCE Project。MIT 许可证。</p>
         </footer>
@@ -411,35 +401,6 @@
 
   <script src="script.js"></script>
 
-  <!-- 弹窗 -->
-  <div id="qqModal" class="modal">
-    <div class="modal-content">
-      <span class="modal-close">&times;</span>
-      <h3>加入内测群</h3>
-      <img src="./logo/modQQ.jpg" alt="QQ群二维码" style="max-width: 300px;">
-    </div>
-  </div>
 
-  <script>
-    document.querySelector('.btn-primary').addEventListener('click', function(e) {
-      e.preventDefault();
-      document.getElementById('qqModal').classList.add('show');
-    });
-    document.querySelector('.modal-close').addEventListener('click', function() {
-      document.getElementById('qqModal').classList.remove('show');
-    });
-    window.addEventListener('click', function(e) {
-      if (e.target.id === 'qqModal') document.getElementById('qqModal').classList.remove('show');
-    });
-  </script>
-
-  <style>
-    .modal { opacity: 0; visibility: hidden; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); transition: opacity 0.3s ease; }
-    .modal.show { opacity: 1; visibility: visible; }
-    .modal-content { background: #1a1a2e; margin: 10% auto; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; position: relative; transform: scale(0.9); opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .modal.show .modal-content { transform: scale(1); opacity: 1; }
-    .modal-close { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #fff; }
-    .modal h3 { margin-bottom: 20px; color: #fff; }
-  </style>
 </body>
 </html>
