@@ -17,6 +17,8 @@
   --surface-light: #1a1a24;
   --border: #222233;
   --border-light: #333348;
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
   --text: #e8e8f0;
   --text-dim: #888899;
   --text-muted: #555566;
@@ -46,6 +48,10 @@ body {
   background: var(--bg);
   overflow: hidden;
   cursor: none;
+}
+
+body.reduced-motion {
+  cursor: auto;
 }
 
 a {
@@ -130,7 +136,7 @@ a {
   padding: 0.8rem 3rem;
   backdrop-filter: blur(20px);
   background: rgba(6, 6, 8, 0.8);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .nav-logo {
@@ -194,6 +200,15 @@ a {
   height: 2px;
   z-index: 101;
   background: transparent;
+}
+
+.progress-track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-soft), transparent);
+  opacity: 0.7;
 }
 
 .progress-bar {
@@ -274,6 +289,7 @@ a {
   transition: opacity 0.8s var(--ease-out), visibility 0.8s;
   overflow: hidden;
   padding: 6rem 4rem 3rem;
+  contain: layout paint;
 }
 
 .section.active {
@@ -315,7 +331,7 @@ a {
 .label-line {
   width: 40px;
   height: 1px;
-  background: var(--border-light);
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
 }
 
 .label-text {
@@ -331,6 +347,7 @@ a {
   transform: translateY(40px);
   transition: all 0.9s var(--ease-out);
   transition-delay: var(--delay, 0s);
+  will-change: transform, opacity;
 }
 
 .reveal-up {
@@ -338,6 +355,7 @@ a {
   transform: translateY(50px);
   transition: all 0.8s var(--ease-out);
   transition-delay: var(--delay, 0.15s);
+  will-change: transform, opacity;
 }
 
 .section.active .reveal-text,
@@ -402,6 +420,7 @@ a {
   filter: blur(10px);
   transform: scale(1.1);
   animation: signatureReveal 2.5s var(--ease-out) 0.5s forwards;
+  will-change: transform, opacity, filter;
 }
 
 @keyframes signatureReveal {
@@ -429,6 +448,7 @@ a {
   gap: 1rem;
   opacity: 0;
   animation: fadeInDown 1s var(--ease-out) 0.3s forwards;
+  will-change: transform, opacity;
 }
 
 .pretitle-text {
@@ -504,6 +524,7 @@ a {
   color: var(--text-dim);
   opacity: 0;
   animation: fadeInUp 1s var(--ease-out) 1.4s forwards;
+  will-change: transform, opacity;
 }
 
 /* Stats */
@@ -514,6 +535,7 @@ a {
   margin-top: 1rem;
   opacity: 0;
   animation: fadeInUp 1s var(--ease-out) 1.8s forwards;
+  will-change: transform, opacity;
 }
 
 .stat {
@@ -544,7 +566,7 @@ a {
 .stat-divider {
   width: 1px;
   height: 40px;
-  background: var(--border);
+  background: linear-gradient(180deg, transparent, var(--line-strong), transparent);
 }
 
 /* Scroll hint */
@@ -557,6 +579,7 @@ a {
   gap: 0.5rem;
   opacity: 0;
   animation: fadeInUp 1s var(--ease-out) 2.4s forwards;
+  will-change: transform, opacity;
 }
 
 .scroll-hint-text {
@@ -585,6 +608,7 @@ a {
   white-space: nowrap;
   pointer-events: none;
   animation: floatCode 15s linear infinite;
+  will-change: transform, opacity;
 }
 
 .code-1 { top: 15%; left: 8%; animation-delay: 0s; }
@@ -657,7 +681,7 @@ a {
 
 .pillar {
   background: linear-gradient(135deg, var(--surface), var(--bg-light));
-  border: 1px solid var(--border);
+  border: 1px solid var(--line-soft);
   border-radius: 16px;
   padding: 2.5rem 2rem;
   transition: all 0.4s var(--ease-out);
@@ -746,7 +770,7 @@ a {
 
 .arch-node {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--line-soft);
   border-radius: 12px;
   padding: 1.5rem 1.25rem;
   text-align: center;
@@ -799,7 +823,7 @@ a {
 .connector-line {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, var(--border), var(--accent-dim), var(--border));
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
   position: relative;
 }
 
@@ -833,7 +857,7 @@ a {
   color: var(--text-dim);
   padding: 0.5rem 1rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--line-soft);
   border-radius: 8px;
   transition: border-color 0.3s;
 }
@@ -863,7 +887,7 @@ a {
   align-items: center;
   padding: 0.75rem 1.25rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--line-soft);
   border-radius: 8px;
   font-size: 0.8rem;
 }
@@ -914,7 +938,7 @@ a {
 
 .feature-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--line-soft);
   border-radius: 16px;
   padding: 2rem;
   position: relative;
@@ -1000,7 +1024,7 @@ a {
 
 .terminal {
   background: #0c0c14;
-  border: 1px solid var(--border);
+  border: 1px solid var(--line-soft);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -1012,7 +1036,7 @@ a {
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
   background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .terminal-dot {
@@ -1078,7 +1102,7 @@ a {
 
 .quote-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--line-soft);
   border-radius: 12px;
   padding: 2rem;
   position: relative;
@@ -1232,7 +1256,7 @@ a {
   gap: 0.25rem;
   padding: 0.75rem 1rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--line-soft);
   border-radius: 8px;
 }
 
@@ -1251,7 +1275,7 @@ a {
 /* Footer */
 .footer {
   padding-top: 3rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--line-soft);
   text-align: center;
 }
 
@@ -1352,9 +1376,15 @@ a {
    ============================================ */
 @media (max-width: 900px) {
   .nav { padding: 1rem 1.5rem; }
+  .nav-logo img { height: 56px; }
   .nav-links { display: none; }
   .section { padding: 5rem 1.5rem 2rem; }
   .section-dots { right: 0.75rem; }
+  .hero-content { gap: 1.5rem; padding: 0 1rem; }
+  .hero-signature { letter-spacing: 0.18em; }
+  .hero-pretitle { gap: 0.6rem; }
+  .glitch-line { width: 22px; }
+  .hero-video { width: 130%; height: 100%; object-fit: cover; }
   .vision-pillars { grid-template-columns: 1fr; }
   .features-grid { grid-template-columns: 1fr; }
   .arch-diagram { flex-direction: column; }
@@ -1368,4 +1398,24 @@ a {
   .hero-stats { flex-direction: column; gap: 1rem; }
   .stat-divider { width: 40px; height: 1px; }
   .cursor-glow { display: none; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto; }
+  .custom-cursor,
+  .custom-cursor-trail,
+  .cursor-glow { display: none; }
+  .section-dots { display: none; }
+  #particleCanvas { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .floating-code { display: none; }
+  #particleCanvas { display: none; }
 }
