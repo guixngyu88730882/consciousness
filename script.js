@@ -39,6 +39,7 @@
   const cursorGlow = document.getElementById('cursorGlow');
   const particleCanvas = document.getElementById('particleCanvas');
   const ctx = particleCanvas.getContext('2d');
+  const navLinks = document.querySelectorAll('.nav-link');
   const customCursor = document.getElementById('customCursor');
   const cursorTrails = [
     document.getElementById('cursorTrail1'),
@@ -53,6 +54,37 @@
   let cursorEnabled = !env.coarsePointer && !env.reducedMotion;
   let particlesEnabled = !env.reducedMotion;
   let connectionsEnabled = !env.reducedMotion && !env.coarsePointer;
+  let snapNavigationMode = !env.coarsePointer;
+  let mobileSectionObserver = null;
+
+  function setupSectionObserver() {
+    if (mobileSectionObserver) {
+      mobileSectionObserver.disconnect();
+      mobileSectionObserver = null;
+    }
+
+    if (snapNavigationMode) return;
+
+    mobileSectionObserver = new IntersectionObserver((entries) => {
+      let best = null;
+      entries.forEach((entry) => {
+        if (!best || entry.intersectionRatio > best.intersectionRatio) {
+          best = entry;
+        }
+      });
+
+      if (best && best.isIntersecting) {
+        const index = parseInt(best.target.dataset.index, 10);
+        if (!Number.isNaN(index)) {
+          goToSection(index, true);
+        }
+      }
+    }, {
+      threshold: [0.25, 0.5, 0.75],
+    });
+
+    sections.forEach((section) => mobileSectionObserver.observe(section));
+  }
 
   function updateMotionPreferences() {
     env.reducedMotion = media.reducedMotion.matches;
@@ -61,6 +93,9 @@
     cursorEnabled = !env.coarsePointer && !env.reducedMotion;
     particlesEnabled = !env.reducedMotion;
     connectionsEnabled = !env.reducedMotion && !env.coarsePointer;
+
+    const prevMode = snapNavigationMode;
+    snapNavigationMode = !env.coarsePointer;
 
     document.body.classList.toggle('reduced-motion', env.reducedMotion || env.coarsePointer);
 
@@ -79,37 +114,50 @@
       particlesAnimationId = null;
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     }
+
+    if (prevMode !== snapNavigationMode) {
+      setupSectionObserver();
+    }
+  }
+
+  function updateActiveNavLink(index) {
+    navLinks.forEach((link) => {
+      const target = parseInt(link.dataset.section, 10);
+      link.classList.toggle('active', target === index);
+    });
   }
 
   function goToSection(index, instant = false) {
     if (index < 0 || index >= state.totalSections) return;
-    if (!instant && state.isTransitioning) return;
+    if (snapNavigationMode && !instant && state.isTransitioning) return;
     if (index === state.currentSection && !instant) return;
 
     state.isTransitioning = true;
     state.currentSection = index;
 
-    // Update sections
-    sections.forEach((sec, i) => {
-      sec.classList.toggle('active', i === index);
-    });
+    if (snapNavigationMode) {
+      sections.forEach((sec, i) => {
+        sec.classList.toggle('active', i === index);
+      });
+    } else {
+      sections.forEach((sec, i) => {
+        sec.classList.toggle('active', i <= index);
+      });
+    }
 
-    // Update dots
     dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === index);
     });
 
-    // Update progress
     const progress = (index / (state.totalSections - 1)) * 100;
     progressBar.style.width = progress + '%';
 
-    // Nav state
     nav.classList.toggle('scrolled', index > 0);
+    updateActiveNavLink(index);
 
-    // Trigger section-specific animations
     onSectionEnter(index);
 
-    const dur = instant ? 0 : state.transitionDuration;
+    const dur = instant ? 0 : (snapNavigationMode ? state.transitionDuration : 250);
     setTimeout(() => {
       state.isTransitioning = false;
     }, dur);
@@ -136,6 +184,7 @@
   const scrollThreshold = 50;
 
   window.addEventListener('wheel', (e) => {
+    if (!snapNavigationMode) return;
     e.preventDefault();
 
     scrollAccumulator += e.deltaY;
@@ -149,7 +198,6 @@
       scrollAccumulator = 0;
     }
 
-    // Reset accumulator after a pause
     clearTimeout(window._scrollResetTimeout);
     window._scrollResetTimeout = setTimeout(() => {
       scrollAccumulator = 0;
@@ -167,6 +215,7 @@
   }, { passive: true });
 
   window.addEventListener('touchend', (e) => {
+    if (!snapNavigationMode) return;
     const diff = touchStartY - e.changedTouches[0].clientY;
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
@@ -212,16 +261,26 @@
   // NAV LINK CLICKS
   // ========================================
 
-  document.querySelectorAll('.nav-link').forEach((link) => {
+  navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const index = parseInt(link.dataset.section);
-      goToSection(index);
+      const index = parseInt(link.dataset.section, 10);
+      if (snapNavigationMode) {
+        e.preventDefault();
+        goToSection(index);
+      } else {
+        const targetSection = sections[index];
+        if (!targetSection) return;
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 
   document.querySelector('.nav-logo').addEventListener('click', () => {
-    goToSection(0);
+    if (snapNavigationMode) {
+      goToSection(0);
+      return;
+    }
+    sections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
   // ========================================
@@ -457,6 +516,7 @@
   }
 
   // Activate hero on load
+  setupSectionObserver();
   goToSection(0, true);
 
   // Remove loading state
