@@ -42,12 +42,12 @@
 
   <!-- Section indicators -->
   <div class="section-dots" id="sectionDots">
-    <button class="dot active" data-section="0"></button>
-    <button class="dot" data-section="1"></button>
-    <button class="dot" data-section="2"></button>
-    <button class="dot" data-section="3"></button>
-    <button class="dot" data-section="4"></button>
-    <button class="dot" data-section="5"></button>
+    <button class="dot active" data-section="0" aria-label="跳转到第1屏"></button>
+    <button class="dot" data-section="1" aria-label="跳转到第2屏"></button>
+    <button class="dot" data-section="2" aria-label="跳转到第3屏"></button>
+    <button class="dot" data-section="3" aria-label="跳转到第4屏"></button>
+    <button class="dot" data-section="4" aria-label="跳转到第5屏"></button>
+    <button class="dot" data-section="5" aria-label="跳转到第6屏"></button>
   </div>
 
   <!-- Main scroll container -->
@@ -56,7 +56,7 @@
     <!-- ==================== SECTION 0: HERO ==================== -->
     <section class="section section-hero" id="hero" data-index="0">
       <div class="hero-video-container">
-        <video autoplay muted loop playsinline class="hero-video">
+        <video autoplay muted loop playsinline preload="metadata" class="hero-video">
           <source src="./logo/hero.mp4" type="video/mp4">
         </video>
         <div class="hero-video-overlay"></div>
